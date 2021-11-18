@@ -8,8 +8,8 @@ RSpec.describe Comment, type: :model do
   end
 
   describe 'Associations' do
-    it { is_expected.to belong_to :articles }
-    it { is_expected.to belong_to :users }
+    it { is_expected.to belong_to :article }
+    it { is_expected.to belong_to :user }
   end
 
   describe 'Factory' do
