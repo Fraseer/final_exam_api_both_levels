@@ -1,8 +1,8 @@
 class Api::CommentsController < ApplicationController
   def create
-    comment = Comment.new(body: params[:body])
-    comment.user = User.find_by(name: params[:user])
-    comment.article = Article.find_by(title: params[:article])
+    comment = Comment.new(body: params[:comment][:body])
+    comment.user = User.find_by(name: params[:comment][:user])
+    comment.article = Article.find_by(title: params[:comment][:article])
     comment.save
 
     if comment.persisted?
