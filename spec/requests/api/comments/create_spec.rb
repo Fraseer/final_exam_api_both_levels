@@ -1,15 +1,15 @@
 RSpec.describe 'POST /api/comments', type: :request do
   let!(:article) { create(:article, title: 'article') }
   let!(:user) { create(:user, name: 'Fraser') }
-  before do
-    post '/api/comments', params: {
-      body: 'I have left a comment.',
-      user: 'Fraser',
-      article: 'article'
-    }
-  end
-
+  
   describe 'succesful creation of comment' do
+    before do
+      post '/api/comments', params: {
+        body: 'I have left a comment.',
+        user: 'Fraser',
+        article: 'article'
+      }
+    end
     it 'is expected to return a 201 response' do
       expect(response).to have_http_status 201
     end
@@ -28,13 +28,21 @@ RSpec.describe 'POST /api/comments', type: :request do
   end
 
   describe 'unsuccesful creation of comment' do
+    before do
+      post '/api/comments', params: {
+        body: '',
+        user: 'Fraser',
+        article: 'article'
+      }
+    end
+    
     describe 'when the body has no content' do
       it 'is expected to return a 422 response' do
         expect(response).to have_http_status 422
       end
 
       it 'is expected to render a unsuccessful message' do
-        expect(response_json['error']).to eq 'You must enter some text to leave a comment'
+        expect(response_json['error']).to eq 'You must enter some text to leave a comment.'
       end
 
       it 'is expected that there will not be a comment on the article' do
