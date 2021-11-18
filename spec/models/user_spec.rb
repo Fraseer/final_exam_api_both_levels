@@ -1,10 +1,4 @@
-require 'rails_helper'
-
 RSpec.describe User, type: :model do
-  it 'is expected to have valid Factory' do
-    expect(create(:user)).to be_valid
-  end
-
   describe 'Database table' do
     it { is_expected.to have_db_column :encrypted_password }
     it { is_expected.to have_db_column :email }
@@ -30,6 +24,12 @@ RSpec.describe User, type: :model do
       emails.each do |email|
         it { is_expected.to allow_value(email).for(:email) }
       end
+    end
+  end
+
+  describe 'Factory' do
+    it 'is expected to have a valid factory' do
+      expect(create(:user)).to be_valid
     end
   end
 end
