@@ -1,4 +1,6 @@
 class Api::CommentsController < ApplicationController
+before_action :authenticate_user!, only: [:create]
+
   def create
     comment = Comment.new(body: params[:comment][:body])
     comment.user = User.find_by(name: params[:comment][:user])
@@ -8,7 +10,7 @@ class Api::CommentsController < ApplicationController
     if comment.persisted?
       render json: { message: 'You have successfull left a comment.' }, status: 201
     else
-      render json: {error: 'You must enter some text to leave a comment.'}, status: 422
+      render json: {errors: 'You must enter some text to leave a comment.'}, status: 422
     end
   end
 end
