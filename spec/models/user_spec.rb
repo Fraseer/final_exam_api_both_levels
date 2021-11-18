@@ -27,6 +27,10 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'Associations' do
+    it { is_expected.to have_many :comments }
+  end
+
   describe 'Factory' do
     it 'is expected to have a valid factory' do
       expect(create(:user)).to be_valid
